@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <title>Douglas Marques | Personal Trainer & Consultoria Fitness</title>
+    <meta name="description" content="Douglas Marques Personal Trainer. Referência em Consultoria Fitness em Maceió/AL. Especialista em fisiologia do exercício, emagrecimento e hipertrofia.">
+    <meta name="author" content="Douglas Marques">
+
+    <meta name="theme-color" content="#1A1A1A" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#F5F5F5" media="(prefers-color-scheme: light)">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIÁVEIS DE CORES E TEMA --- */
+        :root {
+            --bg-color: #1A1A1A; 
+            --section-bg-color: #222222; 
+            --card-bg-color: #2D2D2D;
+            --text-main-color: #FFFFFF; 
+            --text-secondary-color: #CCCCCC; 
+            --header-color: #FFFFFF;
+            --accent-color: #E5FF00; 
+            --accent-glow: rgba(229, 255, 0, 0.15);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --btn-text-solid: #000000; 
+            --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.9);
+            --input-bg: rgba(26, 26, 26, 0.9);
+            --gradient-featured: linear-gradient(180deg, rgba(229, 255, 0, 0.05) 0%, #2D2D2D 100%);
+            --action-gradient: linear-gradient(135deg, #E5FF00 0%, #B8CC00 100%); 
+            
+            --font-body: 'Montserrat', sans-serif;
+            --max-width: 900px;
+            --border-radius: 12px;
+        }
+
+        body.light-theme {
+            --bg-color: #F0F0F0; 
+            --section-bg-color: #FFFFFF; 
+            --card-bg-color: #FAFAFA;
+            --text-main-color: #1A1A1A; 
+            --text-secondary-color: #555555; 
+            --header-color: #000000;
+            --accent-color: #C1D600; 
+            --accent-glow: rgba(193, 214, 0, 0.2);
+            --border-glass: rgba(0, 0, 0, 0.1);
+            --btn-text-solid: #000000; 
+            --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            --input-bg: #FFFFFF;
+            --gradient-featured: linear-gradient(180deg, rgba(193, 214, 0, 0.08) 0%, #FFFFFF 100%);
+            --action-gradient: linear-gradient(135deg, #C1D600 0%, #9DAE00 100%); 
+        }
+
+        /* --- RESET E LAYOUT BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-body); }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-main-color); line-height: 1.6; overflow-x: hidden; transition: 0.4s; }
+        a { text-decoration: none; color: inherit; }
+        .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+        section { padding: 50px 0; }
+        .card { background: var(--section-bg-color); border: 1px solid var(--border-glass); border-radius: var(--border-radius); padding: 35px 30px; box-shadow: var(--shadow-soft); }
+
+        /* --- ANIMAÇÕES --- */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- BOTÕES FLUTUANTES --- */
+        .theme-toggle, .share-toggle, .share-menu button { 
+            position: fixed; z-index: 1000; background: var(--section-bg-color); border: 1px solid var(--border-glass);
+            color: var(--accent-color); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow-soft); 
+        }
+        .theme-toggle { top: 20px; right: 20px; }
+        .share-container { position: fixed; top: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .share-menu { display: flex; flex-direction: column; gap: 8px; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .share-menu.active { opacity: 1; pointer-events: auto; }
+        .share-menu button { position: static; width: 40px; height: 40px; color: var(--text-main-color); }
+        .theme-toggle:hover, .share-toggle:hover, .share-menu button:hover { background: var(--action-gradient); color: var(--btn-text-solid); transform: scale(1.1); }
+
+        /* --- HERO --- */
+        .hero { padding: 80px 20px 40px; text-align: center; }
+        .hero-logo { width: 100%; max-width: 350px; margin: 0 auto 25px; }
+        .hero-bio { font-size: 1.1rem; color: var(--text-secondary-color); margin-bottom: 30px; }
+        .action-grid { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-action { flex: 1; min-width: 160px; max-width: 200px; background: var(--section-bg-color); border: 1px solid var(--border-glass); border-radius: var(--border-radius); padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .btn-action:hover { background: var(--action-gradient); color: var(--btn-text-solid); transform: translateY(-5px); box-shadow: 0 10px 20px var(--accent-glow); }
+        .btn-action i { font-size: 1.5rem; color: var(--accent-color); }
+        .btn-action:hover i { color: var(--btn-text-solid); }
+        .btn-action span { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; }
+
+        /* --- SOBRE --- */
+        .about-wrapper { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+        @media(min-width: 600px) { .about-wrapper { flex-direction: row; text-align: left; } }
+        .about-profile-pic { width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--accent-color); object-fit: cover; }
+        .highlight { color: var(--accent-color); font-weight: 700; }
+        .location-tag { display: inline-block; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; border: 1px solid var(--border-glass); margin: 2px; }
+        .about-stats { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .stat-item { background: var(--card-bg-color); padding: 10px; border-radius: 8px; flex: 1; min-width: 90px; text-align: center; border: 1px solid var(--border-glass); }
+        .stat-number { font-size: 1.2rem; font-weight: 800; color: var(--accent-color); }
+        .stat-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; }
+
+        /* --- PLANOS --- */
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .section-header h2 { font-size: 2rem; text-transform: uppercase; font-weight: 900; letter-spacing: -1px; margin-bottom: 5px;}
+        .section-subtitle { font-size: 0.95rem; color: var(--text-secondary-color); font-weight: 500; }
+        .carousel-wrapper { overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
+        .carousel-track { display: flex; gap: 20px; width: max-content; padding: 0 20px; margin: 0 auto;}
+        .plan-card { width: 300px; display: flex; flex-direction: column; position: relative; text-align: center; }
+        .plan-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--action-gradient); color: var(--btn-text-solid); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; z-index: 2; white-space: nowrap;}
+        .plan-title { font-size: 1.5rem; text-transform: uppercase; font-weight: 800; margin: 10px 0 5px; }
+        .plan-price { font-size: 2.2rem; font-weight: 900; color: var(--accent-color); }
+        .plan-price-sub { font-size: 0.85rem; color: var(--text-secondary-color); margin-bottom: 20px; font-weight: 600;}
+        .plan-features { text-align: left; margin: 0 0 25px 0; flex-grow: 1; font-size: 0.9rem; }
+        .plan-features li { margin-bottom: 10px; display: flex; gap: 10px; color: var(--text-secondary-color); }
+        .plan-features i { color: var(--accent-color); margin-top: 4px; }
+        .bonus-box { background: var(--accent-color); color: var(--btn-text-solid); padding: 10px; border-radius: 8px; font-weight: 800; margin-top: 15px; font-size: 0.85rem; }
+
+        /* --- BOTÕES --- */
+        .btn-solid { width: 100%; background: var(--action-gradient); color: var(--btn-text-solid); border: none; padding: 15px; border-radius: 8px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .btn-outline { width: 100%; background: transparent; color: var(--text-main-color); border: 2px solid var(--accent-color); padding: 13px; border-radius: 8px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .btn-solid:hover, .btn-outline:hover { transform: translateY(-3px); box-shadow: 0 10px 20px var(--accent-glow); }
+        .btn-outline:hover { background: var(--action-gradient); color: var(--btn-text-solid); border-color: transparent;}
+
+        /* --- FORMULÁRIO (FICHA DE AVALIAÇÃO) --- */
+        .form-section-title { font-size: 0.9rem; font-weight: 900; color: var(--accent-color); text-transform: uppercase; margin: 25px 0 15px; border-bottom: 1px solid var(--border-glass); padding-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: var(--text-secondary-color); }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-glass); border-radius: 8px; color: var(--text-main-color); font-weight: 500; font-size: 0.9rem; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent-color); outline: none; }
+        .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .form-row .form-group { flex: 1; min-width: 130px; }
+        .form-textarea { resize: vertical; min-height: 80px; }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-glass); font-size: 0.8rem; color: var(--text-secondary-color); }
+    </style>
+</head>
+<body>
+
+    <div class="share-container">
+        <button class="share-toggle" onclick="toggleShareMenu()"><i class="fas fa-share-alt"></i></button>
+        <div class="share-menu" id="shareMenu">
+            <button onclick="shareLink('whatsapp')"><i class="fab fa-whatsapp"></i></button>
+            <button onclick="shareLink('instagram')"><i class="fab fa-instagram"></i></button>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-sun"></i></button>
+
+    <main class="container">
+        
+        <header class="hero fade-up">
+            <img src="./logo.jpeg" alt="Douglas Marques Personal" class="hero-logo">
+            <p class="hero-bio">Treinamento de elite baseado em ciência. Especialista em Fisiologia do Exercício.</p>
+            <nav class="action-grid">
+                <a href="https://wa.me/554891049153" class="btn-action"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+                <a href="#planos" class="btn-action"><i class="fas fa-dumbbell"></i><span>Consultoria</span></a>
+            </nav>
+        </header>
+
+        <section id="sobre">
+            <article class="card about-wrapper fade-up">
+                <img src="perfil.jpeg" alt="Douglas Marques" class="about-profile-pic">
+                <div class="about-content">
+                    <h3 class="plan-title" style="margin-top: 0; font-size: 1.4rem;">Douglas Marques</h3>
+                    <p class="about-text">
+                        Referência em Consultoria Fitness em <span class="highlight">Maceió/AL</span>. Pós-graduado em <span class="highlight">fisiologia do exercício</span> com mais de 10 anos de experiência. 
+                        Atualmente atua como <span class="highlight">Coordenador na GFIT Academia</span>.
+                    </p>
+                    <div style="margin: 15px 0;">
+                        <span class="location-tag">Maceió</span><span class="location-tag">Viçosa</span><span class="location-tag">Maribondo</span><span class="location-tag">Cajueiro</span><span class="location-tag">Atalaia</span>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-item"><div class="stat-number">+10</div><div class="stat-label">Anos Exp.</div></div>
+                        <div class="stat-item"><div class="stat-number">GFIT</div><div class="stat-label">Coord.</div></div>
+                        <div class="stat-item"><div class="stat-number">Elite</div><div class="stat-label">Método</div></div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="planos">
+            <div class="section-header fade-up">
+                <h2>Consultoria Online</h2>
+                <span class="section-subtitle">Para todo o Brasil.</span>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel-track">
+                    <article class="card plan-card fade-up">
+                        <h3 class="plan-title">Mensal</h3>
+                        <div class="plan-price">R$ 230</div>
+                        <div class="plan-price-sub" style="opacity: 0;">-</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Treino Personalizado App</li>
+                            <li><i class="fas fa-check"></i> Suporte WhatsApp</li>
+                            <li><i class="fas fa-check"></i> Ajustes Mensais</li>
+                        </ul>
+                        <button onclick="escolherPlano('Online Mensal - R$ 230')" class="btn-outline">Contratar</button>
+                    </article>
+
+                    <article class="card plan-card fade-up">
+                        <h3 class="plan-title">Trimestral</h3>
+                        <div class="plan-price">R$ 350</div>
+                        <div class="plan-price-sub">Plano de 90 dias</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Avaliação Completa</li>
+                            <li><i class="fas fa-check"></i> Treino periodizado no App</li>
+                            <li><i class="fas fa-check"></i> Acompanhamento de evolução</li>
+                        </ul>
+                        <button onclick="escolherPlano('Online Trimestral - R$ 350')" class="btn-outline">Contratar</button>
+                    </article>
+
+                    <article class="card plan-card featured fade-up">
+                        <div class="plan-badge">RECOMENDADO</div>
+                        <h3 class="plan-title">Anual</h3>
+                        <div class="plan-price">R$ 950</div>
+                        <div class="plan-price-sub">Foco total a longo prazo</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Check-ins Periódicos</li>
+                            <li><i class="fas fa-check"></i> Suporte Prioritário</li>
+                            <li class="bonus-box"><i class="fas fa-utensils"></i> PLANO ALIMENTAR INCLUSO</li>
+                        </ul>
+                        <button onclick="escolherPlano('Online Anual - R$ 950 com Dieta')" class="btn-solid">Quero o Shape de Elite</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="planos-presenciais">
+            <div class="section-header fade-up">
+                <h2>Treinamento Presencial</h2>
+                <span class="section-subtitle">Acompanhamento lado a lado em Maceió e região.</span>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel-track" style="justify-content: center; width: 100%;">
+                    <article class="card plan-card featured fade-up" style="border-color: var(--accent-color);">
+                        <div class="plan-badge">ALTA PERFORMANCE</div>
+                        <h3 class="plan-title">Presencial</h3>
+                        <div class="plan-price">R$ 800</div>
+                        <div class="plan-price-sub">Mensal</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Foco e acompanhamento individual</li>
+                            <li><i class="fas fa-check"></i> Correção biomecânica cirúrgica</li>
+                            <li><i class="fas fa-check"></i> Atendimento em Maceió e regiões</li>
+                        </ul>
+                        <button onclick="escolherPlano('Treinamento Presencial - R$ 800/mês')" class="btn-solid">Consultar Disponibilidade</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="ficha">
+            <div class="section-header fade-up">
+                <h2>Ficha de Avaliação</h2>
+                <span class="section-subtitle">Responda com atenção para iniciarmos seu planejamento.</span>
+            </div>
+            
+            <form class="card fade-up" onsubmit="enviarFicha(event)">
+                
+                <h4 class="form-section-title"><i class="fas fa-user"></i> Dados Pessoais</h4>
+                <div class="form-group">
+                    <label class="form-label">Nome Completo</label>
+                    <input type="text" id="nome" class="form-input" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Idade</label>
+                        <input type="number" id="idade" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Sexo</label>
+                        <select id="sexo" class="form-select" required>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h4 class="form-section-title"><i class="fas fa-ruler-vertical"></i> Composição Física</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Peso (kg)</label>
+                        <input type="number" step="0.1" id="peso" class="form-input" placeholder="Ex: 80.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Altura (cm)</label>
+                        <input type="number" id="altura" class="form-input" placeholder="Ex: 175" required>
+                    </div>
+                </div>
+
+                <h4 class="form-section-title"><i class="fas fa-notes-medical"></i> Histórico de Saúde</h4>
+                <div class="form-group">
+                    <label class="form-label">Possui alguma doença, dor ou restrição física?</label>
+                    <textarea id="restricoes" class="form-textarea" placeholder="Hérnia, dor no joelho, hipertensão, etc..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Faz uso de algum medicamento ou suplemento?</label>
+                    <input type="text" id="medicamentos" class="form-input" placeholder="Quais?">
+                </div>
+
+                <h4 class="form-section-title"><i class="fas fa-running"></i> Rotina e Hábitos</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Nível de Atividade Atual</label>
+                        <select id="nivel_atividade" class="form-select">
+                            <option value="Sedentário">Sedentário (Não treina)</option>
+                            <option value="Leve">Leve (1-2x semana)</option>
+                            <option value="Moderado">Moderado (3-4x semana)</option>
+                            <option value="Intenso">Intenso (5x+ semana)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Como é o seu sono?</label>
+                        <select id="sono" class="form-select">
+                            <option value="Bom">Bom (6h-8h)</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Ruim">Ruim (Insônia/Cansaço)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h4 class="form-section-title"><i class="fas fa-bullseye"></i> Planejamento</h4>
+                <div class="form-group">
+                    <label class="form-label">Qual plano deseja contratar?</label>
+                    <select id="plano_interesse" class="form-select">
+                        <option value="Online Mensal">Online Mensal (R$ 230)</option>
+                        <option value="Online Trimestral">Online Trimestral (R$ 350)</option>
+                        <option value="Online Anual">Online Anual (R$ 950 + Dieta)</option>
+                        <option value="Presencial">Presencial (R$ 800 Mensal)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Objetivo Principal</label>
+                    <textarea id="objetivo" class="form-textarea" placeholder="Ex: Hipertrofia, emagrecimento, saúde..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-solid" style="margin-top: 20px;">
+                    <i class="fab fa-whatsapp"></i> Finalizar Ficha de Avaliação
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Douglas Marques Personal Trainer. Maceió/AL.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-sun');
+            icon.classList.toggle('fa-moon');
+        }
+
+        function toggleShareMenu() { document.getElementById('shareMenu').classList.toggle('active'); }
+
+        const WHATSAPP_NUM = "554891049153";
+
+        function escolherPlano(plano) {
+            const msg = `Fala Douglas! Tenho interesse no plano *${plano}*. Gostaria de saber mais.`;
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function enviarFicha(e) {
+            e.preventDefault();
+            
+            const n = document.getElementById('nome').value;
+            const id = document.getElementById('idade').value;
+            const sx = document.getElementById('sexo').value;
+            const p = document.getElementById('peso').value;
+            const a = document.getElementById('altura').value;
+            const r = document.getElementById('restricoes').value || "Nenhuma";
+            const m = document.getElementById('medicamentos').value || "Nenhum";
+            const act = document.getElementById('nivel_atividade').value;
+            const sn = document.getElementById('sono').value;
+            const pl = document.getElementById('plano_interesse').value;
+            const ob = document.getElementById('objetivo').value;
+
+            const msg = `*--- FICHA DE AVALIAÇÃO DM ---*%0A%0A` +
+                        `*DADOS PESSOAIS*%0A` +
+                        `*Nome:* ${n}%0A*Idade:* ${id} anos | *Sexo:* ${sx}%0A` +
+                        `*Peso:* ${p}kg | *Altura:* ${a}cm%0A%0A` +
+                        `*HISTÓRICO DE SAÚDE*%0A` +
+                        `*Restrições:* ${r}%0A*Medicamentos:* ${m}%0A%0A` +
+                        `*HÁBITOS*%0A` +
+                        `*Atividade:* ${act}%0A*Sono:* ${sn}%0A%0A` +
+                        `*INTERESSE*%0A` +
+                        `*Plano:* ${pl}%0A*Objetivo:* ${ob}`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${msg}`, '_blank');
+        }
+
+        function shareLink(platform) {
+            const url = encodeURIComponent(window.location.href);
+            if (platform === 'whatsapp') {
+                window.open(`https://api.whatsapp.com/send?text=Confira a consultoria do Douglas Marques: ${url}`, '_blank');
+            } else {
+                alert("Copie o link da barra de endereços para o Instagram!");
+            }
+        }
+    </script>
+</body>
+</html>
